@@ -1,0 +1,26 @@
+<%- include('../partials/header')  %>
+<div class="errorCode">
+    <div class="noResult">No results found</div>
+    <div class="noResultMsg"><div >Oops! It looks like the groups/tags you searched for doesn't exist. </div> 
+        <div><a href="/main"><button class="homepagebtn">Groups</button>
+    </a></div></div>
+</div> 
+<script>
+    let Theme=localStorage.getItem('dark-theme')||'disabled';
+        
+        const darkMode=()=>{
+            document.body.classList.add('dark');
+            localStorage.setItem('dark-theme','enabled');
+            console.log(Theme);
+        }
+        const lightMode=()=>{
+          
+            document.body.classList.remove('dark');
+            localStorage.setItem('dark-theme','disabled');
+            console.log(Theme);
+        }
+
+        Theme==='enabled'?darkMode():lightMode();
+</script>
+</body>
+</html>

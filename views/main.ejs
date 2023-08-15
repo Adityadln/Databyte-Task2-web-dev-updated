@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sociaLink</title>
+    
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<body>
+ 
+    <div class="nav">
+        <div class="brandName">
+          <h1 class="brandNameHeader">socia<span class="L">L</span>ink</h1>
+        </div>
+       
+        <div class="button-div">
+            <div class="chatInput main">
+                <input type="text" placeholder="Search Groups/Search by Tags" class="inputBox">
+                
+            </div>
+            <div class="email-text">
+                <%if(user){%>
+                    <p><b><%=user.email%></b></p>
+                   <%}%> 
+                  
+
+                
+            </div>
+            
+            <a  ><button class="signupbtn grpbtn"><i class="fa-solid fa-plus" style="color: #00ed64;"></i>Groups</button></a>
+             <a href="/logout" ><button class="signupbtn">Log Out</button></a>
+        </div>    
+    </div>
+    <div class="group-header">
+        <p>Your Groups<p>
+            <button class="dark-mode">Dark</button>
+    </div>
+    
+       
+    
+    <div class="form-div active">
+        <form >
+            <label for="name">Group Name</label>
+            <br>
+            <input type="text" name="name" id="name" required>
+            <br>
+            <label for="type">Group Type</label>
+            <br>
+            <select id="type" name="type" >
+                <option>Choose the type of the group</option>
+                <option value="Interest-Based">Interest-Based</option>
+                <option value="Friends">Friends</option>
+                <option value="Academic">Academic</option>
+                <option value="Local-community">Local-community</option>
+                <option value="Others">Others</option>
+
+            </select>
+            <br>
+            <label for="description">Group Description</label>
+            <br>
+            <textarea id="description" rows="8"></textarea>
+            <br>
+            <button class="btn">Create</button>
+
+        
+       </form>
+    </div>
+  <div class="cardMainHolder">
+    <div class="card-holder"></div>
+    <div class="allGroups"></div>
+    
+    <div class="card-holder-all"></div>
+  </div>
+    
+   
+        
+       
+        
+        
+    <script>
+
+        let Theme=localStorage.getItem('dark-theme')||'disabled';
+        const darkLightBtn=document.querySelector(".dark-mode");
+        const darkMode=()=>{
+            document.body.classList.add('dark');
+            darkLightBtn.textContent='Light';
+            
+            localStorage.setItem('dark-theme','enabled');
+            console.log(Theme);
+        }
+        const lightMode=()=>{
+          
+            document.body.classList.remove('dark');
+           
+            darkLightBtn.textContent='Dark';
+            localStorage.setItem('dark-theme','disabled');
+            console.log(Theme);
+        }
+
+        Theme==='enabled'?darkMode():lightMode();
+        
+        darkLightBtn.addEventListener("click",()=>{
+            
+            Theme=localStorage.getItem('dark-theme');
+
+            //light mode
+            if(darkLightBtn.textContent==='Dark' && Theme==='disabled'){
+                
+                darkMode();
+            }
+            else{
+                
+                
+                lightMode();
+            }    
+        });
+        
+        
+                
+        
+       const dateOfCreation=()=>{
+            const time=new Date();
+            const year=time.getFullYear().toString();
+            const month=(time.getMonth()+1).toString();
+            const date=time.getDate().toString();
+            const currentDate=`${date}/${month}/${year}`;
+            return currentDate;
+       }
+       const createCard=(Name,Type,logo,color,routeParameter,truthy,truthyGrps,newCard)=>{
+        const card=document.createElement('div');
+        card.classList.add('card');
+
+        const header=document.createElement('div');
+        header.classList.add('header');
+
+        const icon=document.createElement('div');
+        icon.innerHTML=logo;
+        header.appendChild(icon);
+
+        const name=document.createElement('div');
+        name.classList.add('name');
+        name.textContent=Name;
+        header.appendChild(name);
+
+       
+
+
+        const type=document.createElement('div');
+        type.classList.add('type');
+        type.textContent=Type;
+
+        const join=document.createElement('div');
+        join.classList.add('join-div');
+
+        const btn=document.createElement('button');
+        const link=document.createElement('a');
+        link.setAttribute('href',`/main/${routeParameter}`);
+        btn.classList.add('join');
+        
+        btn.textContent=truthyGrps?'Join':'View';
+        
+        link.appendChild(btn);
+        join.appendChild(link);
+
+        card.appendChild(header);
+        card.appendChild(type);
+        card.appendChild(join);
+        card.style.backgroundColor=color;
+        const cardMainHolder=document.querySelector('.cardMainHolder');
+        
+           
+      
+            
+        const allHeader=document.querySelector('.allGroups');
+        allHeader.textContent='Other Groups';
+        
+
+        if(newCard){
+            const cardHolder=document.querySelector('.card-holder');
+            const cardHolderAll=document.querySelector('.card-holder-all');
+            
+            cardHolder.insertBefore(card,cardHolder.firstChild);
+            
+            cardMainHolder.appendChild(cardHolder);
+            cardMainHolder.appendChild(allHeader);
+            cardMainHolder.appendChild(cardHolderAll);
+           
+        }
+        else{
+            cardMainHolder.appendChild(allHeader);
+            if(!truthy){
+            const cardHolder=document.querySelector('.card-holder');
+            cardHolder.insertBefore(card,cardHolder.firstChild);
+            cardMainHolder.appendChild(cardHolder);
+           
+        }
+            else{
+                const cardHolderAll=document.querySelector('.card-holder-all');
+                cardHolderAll.insertBefore(card,cardHolderAll.firstChild);
+                cardMainHolder.appendChild(cardHolderAll);
+                
+            }
+            
+        }
+        
+       
+       
+        document.body.appendChild(cardMainHolder);
+        
+
+        
+      
+
+       }
+     
+
+        const content=document.querySelector('.content');
+        const signupbtn=document.querySelector('.signupbtn');
+       
+        const formDiv=document.querySelector('.form-div');
+        signupbtn.addEventListener('click',(event)=>{
+            formDiv.classList.toggle('active');
+        })
+       
+        
+        
+       
+        const name=document.getElementById('name');
+        const type=document.getElementById('type');
+        const description=document.getElementById('description');
+
+        const form=document.querySelector('form');
+       
+        const date=dateOfCreation();
+
+        form.addEventListener("submit",async(event)=>{
+            event.preventDefault();
+            setTimeout(()=>{
+                formDiv.classList.toggle('active');
+                form.reset();
+            },500)
+        
+            try{
+              const res=await fetch('/main',{
+                method:'POST',
+                body:JSON.stringify({name:name.value,type:type.value,description:description.value,date:date}),
+                headers:{'Content-Type':'application/json'}
+              })
+              const dataMain=await res.json();
+              console.log(dataMain);
+              console.log(dataMain._id)
+              const logo=`<i class="fa-solid fa-l" style="color: #00ed64;"></i>`;
+              createCard(dataMain.name,dataMain.type,logo,`#FFFFFF`,dataMain._id,0,0,'newcard');
+
+              
+            }
+            catch(err){
+                console.log(err);
+            }
+        })
+        let logos=[`<i class="fa-regular fa-handshake" style="color: #001e2b;"></i>`,`<i class="fa-solid fa-heart" style="color: #001e2b;"></i>`,
+        `<i class="fa-solid fa-school" style="color: #001e2b;"></i>`,
+        `<i class="fa-solid fa-building" style="color: #001e2b;"></i>`
+    ,`<i class="fa-solid fa-infinity" style="color: #001e2b;"></i>`];
+    let colors=[`#EED2EE`,`#FFCACC`,`#FFD1A7`,`#FFE183`,`#F9F871`];
+        async function getData(){
+            try{
+            const response=await fetch('/cards',{
+                method:'post',
+                headers:{'Content-Type':'application/json'}
+            })
+            const data=await response.json();
+            const len=data[0].length;
+            let logo;
+            let color;
+             console.log(data);
+                for(j=0;j<len;j++){
+                      switch(data[1][j]){
+                        case 'Interest-Based':
+                            logo=logos[0];
+                            color=colors[0];
+                            break;
+                        case 'Friends':
+                            logo=logos[1];
+                            color=colors[1];
+                            break;
+                        case 'Academic':
+                            logo=logos[2];
+                            color=colors[2];
+                            break;
+                        case 'Local-community': 
+                            logo=logos[3];
+                            color=colors[3];
+                            break;   
+                        case 'Others':
+                            logo=logos[4];
+                            color=colors[4];
+                            break;
+                      }
+                        createCard(data[0][j],data[1][j],logo,color,data[4][j],0,0,null);
+                    
+                   
+                }
+            
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        getData();
+        async function getDataAll(){
+            try{
+            const response=await fetch('/cards/all',{
+                method:'post',
+                headers:{'Content-Type':'application/json'}
+            })
+            const data=await response.json();
+            console.log(data);
+            
+            const len=data.length;
+            let logo;
+            let color;
+         
+                for(let j=0;j<len;j++){
+                      switch(data[j].dataObject[0].type){
+                        case 'Interest-Based':
+                            logo=logos[0];
+                            color=colors[0];
+                            break;
+                        case 'Friends':
+                            logo=logos[1];
+                            color=colors[1];
+                            break;
+                        case 'Academic':
+                            logo=logos[2];
+                            color=colors[2];
+                            break;
+                        case 'Local-community': 
+                            logo=logos[3];
+                            color=colors[3];
+                            break;   
+                        case 'Others':
+                            logo=logos[4];
+                            color=colors[4];
+                            break;
+                      }
+                        createCard(data[j].dataObject[0].name,data[j].dataObject[0].type,logo,color,data[j]._id,1,1,null);
+                    
+                   
+                }
+            
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        getDataAll();
+         
+        async function searchedCards(){
+            const searchbox=document.querySelector(".inputBox");
+            let searchValue;
+
+            await new Promise((resolve, reject) =>{
+                searchbox.addEventListener("keydown",(event)=>{
+                if(event.keyCode===13){  //enter code
+                     searchValue=searchbox.value; 
+                    
+                     resolve();  
+                }
+            })
+            })
+           
+       
+         
+            try{
+                const response=await fetch('/cards/:id',{
+                    method:'post',
+                    headers:{'Content-Type':'application/json'},
+                    body:JSON.stringify({searchvalue:searchValue}),
+                })
+                const data=await response.json();
+                
+                console.log(data);
+                if(data==='yes'){
+                    location.assign('/cards/:id');
+                }
+                else{
+                    location.assign('/mainNoresult/:id');
+                }
+            }
+            
+            catch(err){
+                console.log(err);
+            }
+        }
+        searchedCards();
+
+       const container=document.querySelector('.card-holder-all');
+       container.addEventListener('click',async function(e){
+        if(e.target.textContent==='Join'){
+            const data=await fetch('/addCards',{
+                method:'post',
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify({value:'new join'})
+            })
+        }
+       })
+       
+    </script> 
+  
+</body>
+</html>

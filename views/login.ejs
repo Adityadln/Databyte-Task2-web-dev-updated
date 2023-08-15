@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css" >
+    <title>sociaLink</title>
+</head>
+<body>
+  <div class="button-div">
+              
+    <a href="/" ><button class="signupbtn">Home</button></a>
+</div>
+    <div class="signup">
+      <div class="brandName auth">
+        <h1>socia<span class="L">L</span>ink</h1>
+      </div>
+        <form>
+            <label for="email" id="labelAuth">email</label>
+            <br>
+            <input type="text" name="email" id="email" required>
+            <div class="emailError"></div>
+            <br>
+            <label for="password" id="labelAuth">password</label>
+            <br>
+            <input type="password" name="password" id="password" required>
+            <div class="passwordError"></div>
+            <br>
+            <button class="btn">Log In</button>
+            <hr>
+            <p class="auth-link">Don't have an account? <span ><a href="/signup" class="auth-link color-link">Sign up</a></span></p>
+        </form>
+    </div>
+   
+  <script>
+   let Theme=localStorage.getItem('dark-theme')||'disabled';
+        
+        const darkMode=()=>{
+            document.body.classList.add('dark');
+            localStorage.setItem('dark-theme','enabled');
+            console.log(Theme);
+        }
+        const lightMode=()=>{
+          
+            document.body.classList.remove('dark');
+            localStorage.setItem('dark-theme','disabled');
+            console.log(Theme);
+        }
+
+        Theme==='enabled'?darkMode():lightMode();
+
+   let form=document.querySelector('form');
+   
+    form.addEventListener('submit',async(event)=>{
+         
+        event.preventDefault();
+
+        let email=document.getElementById('email');
+        let password=document.getElementById('password');
+
+        let emailError=document.querySelector('.emailError');
+        let passwordError=document.querySelector('.passwordError');
+        
+        
+     try{
+        const res=await fetch('/login',{
+        method:'POST',
+        body:JSON.stringify({email:email.value,password:password.value}),
+        headers:{'Content-Type':'application/json'}
+        
+      }) 
+     
+      const data=await res.json();
+      
+      
+     
+    console.log(data);
+      if(!data._id){
+         emailError.textContent=data.email;
+         passwordError.textContent=data.password;
+      }
+      if(Array.isArray(data)){
+         location.assign('/main');
+      }
+
+      
+     } 
+     catch(err){
+       console.log("error");
+     }  
+       
+    })
+   
+  </script>
+</body>
+</html>

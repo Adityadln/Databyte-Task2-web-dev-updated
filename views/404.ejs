@@ -1,0 +1,27 @@
+<%- include('../partials/header')  %>
+   
+    <div class="errorCode err404">
+        <div class="error404">404</div>
+        <div class="pageNotFound"><div >Oops! page not found </div> 
+            <div><a href="/main"><button class="homepagebtn">Groups</button>
+        </a></div></div>
+    </div>
+    <script>
+        let Theme=localStorage.getItem('dark-theme')||'disabled';
+        
+        const darkMode=()=>{
+            document.body.classList.add('dark');
+            localStorage.setItem('dark-theme','enabled');
+            console.log(Theme);
+        }
+        const lightMode=()=>{
+          
+            document.body.classList.remove('dark');
+            localStorage.setItem('dark-theme','disabled');
+            console.log(Theme);
+        }
+
+        Theme==='enabled'?darkMode():lightMode();
+    </script>
+</body>
+</html>

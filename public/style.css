@@ -1,0 +1,696 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,700;1,900&display=swap');
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--Primary);
+    
+    
+}
+
+*{
+    box-sizing: border-box;
+    overflow-x: hidden;
+    
+}
+html{
+    width: 100vw;
+    height: 95vh;
+   
+}
+:root{
+    --Primary:#fff ;   
+    --Tertiary:#001E2B;
+    --Secondary:#00ED64;
+    --Secondary-Hover:#21FF7F;
+    --chatBackground:#F5EFE1;
+    --sender:#21FF7F;
+    --reciever:#fff ;
+
+
+}
+.dark{
+    --Primary:#001E2B;
+    --Tertiary:white;
+    --Secondary:#00ED64;
+    --Secondary-Hover:#21FF7F;
+    --chatBackground:#001E2B;
+    --sender:#00ED64;
+    --reciever:#00425E;
+}
+
+
+a{
+    text-decoration: none;
+}
+.signup{
+    width: fit-content;
+    padding: 1rem;
+    border:0.6px solid #D3D3D3;
+    border-radius:0.5rem ;  
+    margin: 8vh auto; 
+}
+.signupbtn{
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--Secondary);
+    color: #001E2B;
+    font-size: 1rem;  
+    height: 3rem;     
+    width: 7.5rem;        
+    padding: 0.25rem 0.5rem; 
+    border-radius: 0.25rem;
+    font-weight: 600;
+    margin-right: 1.4rem;
+    margin-top: 1rem;
+    
+    
+ }
+ .homepagebtn{
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--Secondary);
+    color: #001E2B;
+    font-size: 1rem;  
+    height: 3rem;     
+    width: 7.5rem;        
+    padding: 0.25rem 0.5rem; 
+    border-radius: 0.25rem;
+    font-weight: 600;
+    
+ }
+ #labelAuth{
+    color: var(--Tertiary);
+ }
+
+ .signupbtn.grpbtn{
+    background-color: #001E2B;
+    color: #00ED64;
+    border: 0.6px solid var(--Secondary);
+ }
+ .signupbtn.grpbtn:hover{
+    background-color: #00425E;
+    color:var(--Secondary);
+ }
+ .signupbtn.grpbtn i{
+    margin-right: 0.5rem;
+    
+ }
+ .signupbtn.grpbtn i:hover{
+    color: var(--Tertiary);
+ }
+ .signupbtn:hover{
+   background-color: var(--Secondary-Hover);
+ }
+#email,#password{
+    height: 2.5rem;
+    width: 20rem;
+    border: 0.6px solid #D3D3D3;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+}
+#name,#type{
+    height: 2.5rem;
+    width: 20rem;
+    border: 0.6px solid #001E2B;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 1rem;
+    
+}
+#description{
+   
+    width: 20rem;
+    border: 0.6px solid #001E2B;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 1rem;
+}
+.form-div{
+   
+    width: fit-content;
+    padding: 1rem;
+    border: 1px solid #001E2B;
+    position: absolute;
+    right: 0;
+    top: 6.5rem;
+    margin-right: 1rem;
+    transition: all 0.5s ease-in-out;
+    z-index: 100;
+    background-color: white;
+}
+.form-div.active{
+   
+    width: fit-content;
+    padding: 1rem;
+    border: 0.6px solid #D3D3D3;
+    position: absolute;
+    right: -30rem;
+    top: 6.5rem;
+    margin-right: 1rem;
+    transition: all 0.5s ease-in-out;
+}
+.btn{
+    font-family: 'Montserrat', sans-serif;
+    height: 2.3rem;
+    width: 20rem;
+    border-radius: 0.5rem;
+    border: none;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 16px;
+    background-color: var(--Secondary);
+    font-weight: 600;
+    color: #001E2B;
+    
+
+}
+.btn:hover{
+    background-color: var(--Secondary-Hover);
+}
+.emailError,.passwordError{
+    color: #DC3545;
+}
+.header{
+    margin-top: 0;
+}
+.button-div{
+    display: flex;
+    height: 5rem;
+    justify-content: flex-end;
+   
+}
+::-webkit-scrollbar{
+    width: 0;
+}
+.brandName{
+  color:var(--Tertiary);
+  margin-left: 1.4rem;
+}
+
+.brandName.auth{
+    text-align: center;
+    margin: 0;
+    margin:2.5rem 0 3rem 0;
+}
+.nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;;
+    position: absolute;
+    top: 0;
+    
+}
+.L{
+    color:var(--Secondary);
+
+}
+.auth-link{
+    font-weight: 600;
+    font-size:13px ;
+    text-align: center;
+    color: var(--Tertiary);
+    margin-top: 1rem;
+}
+.auth-link.color-link{
+    color:var(--Secondary);
+}
+.email-text{
+    line-height: 3rem;
+    font-weight: 500;
+    margin-right: 1.5rem;
+    color: var(--Tertiary);
+    display: flex;
+    align-items: center;
+
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    min-height:17rem;
+    width:15rem;
+    border: 1px solid var(--Tertiary);
+    padding: 1rem;
+    border-radius: 8px;
+    transform: scale(0.8);
+    
+   
+   
+}
+.cardMainHolder{
+    display:flex;
+    flex-direction: column;
+    position: absolute;
+    top:10rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    color: #001E2B;
+}
+.card-holder{ 
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    grid-template-rows: 1fr;
+    min-height: 18rem;
+    max-width: 97vw;
+}
+.card-holder-all{
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    grid-template-rows: 1fr;
+    min-height: 18rem;
+    max-width: 97vw;
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    height: 9rem;
+   text-align: center;
+    margin-bottom: 1rem;
+    position: relative;
+
+}
+.header i{
+    min-width:3rem;
+    font-size: 3rem;
+   
+    line-height: 4rem;
+    
+}
+.name{
+    font-size: 1.5rem;
+    font-weight: 600;
+    
+    align-items: center;
+}
+
+.type{
+    height: 4rem;
+    font-size: 1.3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.join{
+    font-family: 'Montserrat', sans-serif;
+    background-color: #00ED64;
+    color: #001E2B;
+    font-size: 1rem;  
+    height: 3rem;     
+    width: 7.5rem;        
+    padding: 0.25rem 0.5rem; 
+    border-radius: 0.25rem;
+    font-weight: 600;
+    
+
+}
+.join-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.group-header{
+    position: absolute;
+    width:90vw;
+    top:6rem ;
+    left: 2rem;
+    font-size: 3rem;
+    font-weight: 600;
+    text-decoration: underline;
+    
+    letter-spacing: -2.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color:var(--Tertiary);
+    
+}
+.All-header{
+    font-size: 3rem;
+    font-weight: 600;
+    text-decoration: underline;
+    color: var(--Tertiary);
+    letter-spacing: -2.5px;
+}
+
+
+.group-header p{
+    margin-top: 0;
+}
+
+.chatBox{
+    
+    width: 60rem;
+    height:75vh;
+    position: absolute;
+    top:8rem;
+    right:5rem;
+    border: 3px solid var(--Tertiary);
+    border-radius: 1rem;
+
+}
+.userGroup{
+    width:25rem;
+    height:75vh;
+    position: absolute;
+    top:8rem;
+    left: 5rem;
+    border: 3px solid var(--Tertiary);
+    border-radius: 1rem;
+}
+.nameRoute{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 5rem;
+    width:100%;
+    border-bottom: 3px solid var(--Tertiary);
+    background-color: var(--Secondary);
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    position: sticky;
+}
+.dateCreated{
+    display: flex;
+    align-items: center;
+
+    height: 80%;
+    width: fit-content;
+    padding: 0.25rem;border-radius: 0.3rem;
+    background-color:var(--Secondary-Hover) ;
+    border:1px solid black;
+    font-size: 1rem;
+    font-weight: 600;
+}
+.descriptionRoute{
+    height: fit-content;
+    width:100%;
+    border-bottom: 3px solid var(--Tertiary);
+    background-color: var(--Secondary);
+    padding: 1rem;
+    opacity: 0;
+    transition:all 0.3s ease-in-out;
+    font-size: 1rem;
+    font-weight: 600;
+   
+}
+.descriptionRoute.active{
+    opacity: 1;
+    
+    
+}
+.tapHere{
+    font-size:0.75rem;
+    font-weight:500;
+}
+.chat{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height:4rem;
+    position: absolute;
+    bottom: 0;
+    background-color: var(--Secondary);
+    border-top: 3px solid var(--Tertiary);
+    position: sticky;
+    
+}
+.chatArea{
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    
+    background: linear-gradient(
+        -45deg,var(--chatBackground),#00ED64,
+        -135deg,var(--chatBackground),#00ED64,
+
+        45deg,var(--chatBackground),#00ED64,
+        135deg,var(--chatBackground),#00ED64,
+
+
+    );
+    
+}
+.left,.right{
+    width:40%;
+    height:fit-content;
+    min-height: 1.8rem;
+    border-radius: 6px;
+    margin: 1rem;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    font-weight: 500;
+    border: 2px solid #001E2B;
+    flex-direction: column-reverse;
+    
+}
+.left{
+    float: left;
+    clear: both;
+    background-color: var(--reciever);
+    color:var(--Tertiary) ;
+
+}
+.right{
+    float: right;
+    clear: both;
+    background-color: var(--sender);
+    color: #001E2B;
+    
+
+}
+.footerSpace{
+    width:100%;
+    height:3rem;
+}
+.inputBox{
+    width: 50rem;
+    height:3rem;
+    font-size: 1.1rem;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 0.8rem;
+    
+    
+}
+.chatInput.main{
+    margin: 1rem;
+    
+}
+
+::-webkit-input-placeholder{
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    padding: 5px;
+}
+.send{
+   
+   width: 3rem;
+   height:3rem;
+   background-color: white;
+   margin-left: 3px;
+   text-align: center;
+   border: 0.5px solid #00ED64;
+   background-color: #001E2B;
+   padding-top: 0.8rem;
+   border-radius: 0.8rem;
+   
+
+   
+}
+.send i{
+    font-size: 1.3rem;
+    
+}
+.members{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 5rem;
+    width:100%;
+    border-bottom: 3px solid var(--Tertiary);
+    background-color: var(--Secondary);
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+
+}
+.members i{
+    margin-right: 0.5rem;
+}
+.membersName{
+   
+    border: 1.5px solid var(--Tertiary);
+    width: 92%;
+    height:80%;
+    margin: 1rem;
+    border-radius: 0.8rem;
+    overflow: auto;
+    
+}
+.membersNameData{
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    padding: 0.8rem;
+    font-size: 1.5rem;
+    width: 100%;
+    height:3rem;
+    border-bottom: 1px solid var(--Tertiary);
+    color: var(--Tertiary);
+    gap:1rem;
+    
+}
+.allGroups{
+    font-size: 3rem;
+    font-weight: 600;
+    text-decoration: underline;
+    color: var(--Tertiary);
+    letter-spacing: -2.5px;
+    padding-left: 2rem;
+}
+.errorCode{
+    
+    width: fit-content;
+    height:fit-content;
+    padding: 4rem;
+    position: absolute;
+    top:6rem;
+    transform: translateX(15%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    color: var(--Tertiary);
+}
+.errorCode.err404{
+    transform: translateX(45%);
+     
+}
+
+.error404{
+    font-size: 20rem;
+    
+}
+.noResult{
+    font-size: 8rem;
+}
+.pageNotFound{
+    font-size: 300%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.noResultMsg{
+    font-size: 150%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    margin: 3rem;
+    
+}
+.rightBox{
+    display: flex;
+    gap: 1rem;
+}
+.dark-mode{
+    width:5rem;
+    height: 2rem;
+    padding:2px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+   background-color: var(--Tertiary);
+   color: var(--Primary);
+    font-weight: 600;
+   
+    
+}
+.form-submit{
+   width: 3rem;
+   height: 3rem;
+   border-radius: 0.8rem;
+}
+.emailPerson{
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+    text-decoration: underline;
+}
+#fileInput{
+    display: none;
+}
+.groupAdmin{
+    color: #00ED64;
+    background-color: #001E2B;
+    width:fit-content;
+    height: fit-content;
+    font-size: 0.75rem;
+    padding: 0.25rem;
+    border-radius: 3px;
+
+}
+.image{
+    height:20rem;
+    width:32rem;
+    
+   
+}
+.image.right,.image.left{
+    display: flex;
+    flex-direction: column;
+}
+
+.namePerson{
+    font-size: 0.8rem;
+    min-height: 1rem;
+    text-decoration: underline;
+    width:100%;
+
+    
+}
+.heroImage{
+    width:100vw;
+    height:97vh;
+    position: relative;
+    top:5rem;
+    border-radius: 2rem;   
+}
+.heroText{
+    position: absolute;
+    top: 11rem;
+    left: 3rem;
+    width:fit-content;
+    height:fit-content;
+    z-index: 100;
+    font-weight: 700;
+    color: #fff;
+     font-family: 'Montserrat', sans-serif;
+     background-color: #001E2B;
+     padding: 5rem 2rem;
+     border-radius: 2rem;
+    border: 3px solid #00ED64;
+
+    
+}
+.linkText{
+    font-size: 4rem;
+    margin: 0;
+}
+.joinText{
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.oneChat{
+    font-size: 3rem;
+}
+
+
+
+

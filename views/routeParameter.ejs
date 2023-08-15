@@ -1,0 +1,249 @@
+<%- include('../partials/header')  %>
+
+
+ 
+
+<div class="container">
+    <div class="userGroup">
+        <div class="members"><i class="fa-solid fa-user" style="color: #001e2b;"></i>Members</div>
+        <div class="membersName"><div class="membersNameData">aditya@gmail.com<div class="groupAdmin">Group Admin</div></div>
+        <div class="membersNameData">adi@gmail.com</div></div>
+    </div>
+    <div class="chatBox">
+        <div class="nameRoute">
+            <div class="nameOfGroup"><%= dataBtn.name  %>
+              <div class="tapHere">Tap here to see group description</div> </div>
+             
+              <div class="rightBox"> <div class="dateCreated">Date created: <%= dataBtn.date  %></div>
+          <a data-iddelete="<%= dataBtnid %>" class="deleteLink" ><i class="fa-solid fa-trash" style="color: #001e2b;" "></i></a>    </div>
+           
+            
+            
+        </div>
+        <div class="descriptionRoute"><%=dataBtn.description  %></div>
+        <div class="chatArea">
+           
+        </div>
+        
+        <!-- <div class="footerSpace"></div> -->
+        
+        
+        <div class="chat">
+
+            <div class="chatInput">
+                <form action="#">
+                    <input type="text" placeholder="Type a message" class="inputBox">
+                    
+
+        
+                </form>
+                
+               
+                
+            </div>
+            <div class="send">
+               
+                <i class="fa-solid fa-share" style="color: #00ed64;"></i>
+            </div>
+
+            <div class="send">
+                <label for="fileInput" id="fileInputLabel" accept="image/png"><i class="fa-solid fa-image" style="color: #00ed64;"></i></label><input type="file" id="fileInput">
+            </div>
+           
+            
+            
+        </div>
+
+    </div>   
+    <div class="url" data-url="<%= dataBtn._id  %>"></div>
+    <div class="pageUrl" data-url="<%= pageId  %>"></div>
+    
+</div>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+
+<script>
+    
+
+     let Theme=localStorage.getItem('dark-theme')||'disabled';
+        
+        const darkMode=()=>{
+            document.body.classList.add('dark');
+            localStorage.setItem('dark-theme','enabled');
+            console.log(Theme);
+        }
+        const lightMode=()=>{
+          
+            document.body.classList.remove('dark');
+            localStorage.setItem('dark-theme','disabled');
+            console.log(Theme);
+        }
+
+        Theme==='enabled'?darkMode():lightMode();
+        
+        
+                
+         
+        
+                
+
+
+     const urlObject=document.querySelector('.url');
+     const userEmail=document.querySelector('.user-email');
+     console.log(urlObject.dataset.url);
+     
+
+     
+    
+    const nameRoute=document.querySelector('.nameOfGroup');
+    const description=document.querySelector('.descriptionRoute');
+    nameRoute.addEventListener('click',()=>{
+        description.classList.toggle('active');
+    });
+    const deleteBtn=document.querySelector('.deleteLink');
+    
+    deleteBtn.addEventListener("click",async()=>{
+        console.log('deleted');
+        
+        try{
+            
+          const response=await fetch(`/main/${deleteBtn.dataset.iddelete}`,{
+            method:"DELETE",
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({url:urlObject.dataset.url})
+          })
+          const dataResponse=await response.json();
+          console.log(dataResponse);
+          window.location.href=dataResponse.url;
+          
+        }
+        catch(err){
+            console.log(err);
+        }
+    })
+
+    // try{
+    //     const res=await fetch('/login',{
+    //     method:'POST',
+    //     body:JSON.stringify({email:email.value,id:_id}),
+    //     headers:{'Content-Type':'application/json'}
+        
+    //   }) 
+    // } 
+    // catch(err){
+    //     console.log(err);
+    // }
+        
+    let pageUrlObject=document.querySelector('.pageUrl');
+        console.log(pageUrlObject.dataset.url);
+
+     
+    const socket=io(`http://localhost:3000`);
+    // const socket=io(`http://localhost:8000`);
+
+    
+    
+    socket.on('connect',()=>{
+        console.log(`you are connected ${socket.id}`);
+    });
+
+   const form=document.querySelector('form');
+   const input=document.querySelector("input");
+
+   const sendBtn=document.querySelector(".send");
+ const submit=(event)=>{
+    event.preventDefault();
+      const data=input.value;
+      
+      appendMsg(data,'right',"You");
+      socket.emit('message',data);
+      input.value="";
+      
+ }
+   form.addEventListener("submit",(e)=>{
+     submit(e);
+   })
+   sendBtn.addEventListener("click",(e)=>{
+    submit(e);
+   })
+
+  const chatArea=document.querySelector(".chatArea");
+  chatArea.addEventListener("scroll",(e)=>{
+    console.log("scrolling...");
+  });
+   const appendMsg=(msg,dir,name)=>{
+     const msgBlock=document.createElement('div');
+     msgBlock.classList.add(dir);
+     msgBlock.innerText=msg;
+     const nameDiv=document.createElement("div");
+    nameDiv.classList.add("namePerson");
+    nameDiv.textContent=name;
+    msgBlock.appendChild(nameDiv);
+     chatArea.appendChild(msgBlock);
+     
+
+   }
+   socket.on('message-post',dataObject=>{
+    console.log(dataObject.data);
+    appendMsg(dataObject.data,'left',socket.id);
+   })
+   
+   const imageUpload=(data,pos,name)=>{
+
+    const imageDiv=document.createElement("div");
+    imageDiv.classList.add(`image`);
+    imageDiv.classList.add(`${pos}`);
+    img=document.createElement("img");
+    img.setAttribute('src',data);
+    const nameDiv=document.createElement("div");
+    nameDiv.classList.add("namePerson");
+    nameDiv.textContent=name;
+    imageDiv.appendChild(nameDiv);
+    imageDiv.appendChild(img);
+    
+    chatArea.appendChild(imageDiv);
+    console.log("image successfully uploaded");
+
+    }
+   const imageInput=document.getElementById('fileInput');
+   imageInput.addEventListener("change",(e)=>{
+     const selectedImage=imageInput.files[0];
+     const imageReader=new FileReader();
+     
+     if(selectedImage){
+        imageReader.onload=((e)=>{
+        const imageData=e.target.result;
+        console.log(imageData);
+        console.log("image uploaded successfully")
+        socket.emit('image-upload',imageData);
+        imageUpload(imageData,'right','you');
+        
+     })
+     imageReader.readAsDataURL(selectedImage);
+     }
+    
+   });
+
+   
+   socket.on('image-upload-all',data=>{
+     console.log(data);
+     imageUpload(data,'left',socket.id);
+     
+     
+   })
+
+
+   
+
+
+</script>
+
+ 
+
+
+   
+</body>
+</html>

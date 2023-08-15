@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css" >
+    <title>sociaLink</title>
+</head>
+<body>
+    <div class="nav">
+        <div class="brandName">
+          <h1>socia<span class="L">L</span>ink</h1>
+        </div>
+        <div class="button-div">
+            <a href="/login" ><button class="signupbtn">Login</button></a>
+        </div>
+    </div>
+    <!-- <div class="title">Linking Lives <br>one chat at a time.</div> -->
+ <div class="heroText">
+    <p class="linkText"><span class="L">L</span>inking people,<br><span class="oneChat">one chat at a time.</span></p>
+    <p class="joinText">Join our vibrant community and bridge the gap by<br> connecting with friends and family.</p>
+    <a href="/signup" ><button class="signupbtn">Sign Up</button></a>
+</div>   
+<div class="heroImage">
+   <img src="https://images.unsplash.com/photo-1506377711776-dbdc2f3c20d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"> 
+</div>
+
+    </div>
+    <script>
+        let Theme=localStorage.getItem('dark-theme')||'disabled';
+        
+        const darkMode=()=>{
+            document.body.classList.add('dark');
+            localStorage.setItem('dark-theme','enabled');
+            console.log(Theme);
+        }
+        const lightMode=()=>{
+          
+            document.body.classList.remove('dark');
+            localStorage.setItem('dark-theme','disabled');
+            console.log(Theme);
+        }
+
+        Theme==='enabled'?darkMode():lightMode();
+    </script>
+    
+   
+</body>
+</html>

@@ -1,0 +1,144 @@
+
+<%- include('../partials/header')  %>
+
+
+<div class="group-header">
+    <p>Groups Matching Your Search<p>
+</div>
+
+<div class="cardMainHolder">
+    <div class="card-holder"> </div>
+</div>
+    
+    
+</body> 
+<script>
+    let Theme=localStorage.getItem('dark-theme')||'disabled';
+        
+        const darkMode=()=>{
+            document.body.classList.add('dark');
+            localStorage.setItem('dark-theme','enabled');
+            console.log(Theme);
+        }
+        const lightMode=()=>{
+          
+            document.body.classList.remove('dark');
+            localStorage.setItem('dark-theme','disabled');
+            console.log(Theme);
+        }
+
+        Theme==='enabled'?darkMode():lightMode();
+        
+        
+    const createCard=(Name,Type,logo,color,routeParameter)=>{
+        const card=document.createElement('div');
+        card.classList.add('card');
+
+        const header=document.createElement('div');
+        header.classList.add('header');
+
+        const icon=document.createElement('div');
+        icon.innerHTML=logo;
+        header.appendChild(icon);
+
+        const name=document.createElement('div');
+        name.classList.add('name');
+        name.textContent=Name;
+        header.appendChild(name);
+
+       
+
+
+        const type=document.createElement('div');
+        type.classList.add('type');
+        type.textContent=Type;
+
+        const join=document.createElement('div');
+        join.classList.add('join-div');
+
+        const btn=document.createElement('button');
+        const link=document.createElement('a');
+        link.setAttribute('href',`/main/${routeParameter}`);
+        btn.classList.add('join');
+        btn.textContent='View';
+        link.appendChild(btn);
+        join.appendChild(link);
+
+        card.appendChild(header);
+        card.appendChild(type);
+        card.appendChild(join);
+        card.style.backgroundColor=color;
+        
+        const cardMainHolder=document.querySelector('.cardMainHolder');
+        
+            cardHolder=document.querySelector('.card-holder');
+            cardHolder.appendChild(card);
+            cardMainHolder.appendChild(cardHolder);
+            document.body.appendChild(cardMainHolder);
+           
+        }
+        
+        
+       
+       let logos=[`<i class="fa-regular fa-handshake" style="color: #001e2b;"></i>`,`<i class="fa-solid fa-heart" style="color: #001e2b;"></i>`,
+        `<i class="fa-solid fa-school" style="color: #001e2b;"></i>`,
+        `<i class="fa-solid fa-building" style="color: #001e2b;"></i>`
+    ,`<i class="fa-solid fa-infinity" style="color: #001e2b;"></i>`];
+    let colors=[`#EED2EE`,`#FFCACC`,`#FFD1A7`,`#FFE183`,`#F9F871`];
+       
+        async function getDataSearch(){
+            try{
+            const response=await fetch('/cards/:id',{
+                method:'post',
+                headers:{'Content-Type':'application/json'}
+            })
+            const data=await response.json();
+            
+           
+            const len=data.length;
+            console.log(len);
+            console.log(data);
+            console.log(data[0].dataObject[0].name)
+           
+            
+            let logo;
+            let color;
+         
+                for(let j=0;j<len;j++){
+                      switch(data[j].dataObject[0].type){
+                        case 'Interest-Based':
+                            logo=logos[0];
+                            color=colors[0];
+                            break;
+                        case 'Friends':
+                            logo=logos[1];
+                            color=colors[1];
+                            break;
+                        case 'Academic':
+                            logo=logos[2];
+                            color=colors[2];
+                            break;
+                        case 'Local-community': 
+                            logo=logos[3];
+                            color=colors[3];
+                            break;   
+                        case 'Others':
+                            logo=logos[4];
+                            color=colors[4];
+                            break;
+                      }
+                        createCard(data[j].dataObject[0].name,data[j].dataObject[0].type,logo,color,data[j]._id);
+                    
+                   
+                }
+            
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        getDataSearch();
+     
+
+</script>
+</html>
