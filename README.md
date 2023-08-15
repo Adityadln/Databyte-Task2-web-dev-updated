@@ -1,4 +1,4 @@
-#SociaLink - a group based social network.
+# SociaLink - a group based social network.
 ## Description
 + The project made is a group based social network which essentially lets an user join different groups,chat and shares images.
 + The project is made using ejs css and vanilla javascript for the front end and node js(express framework),mongoDB as the database and have used socket.io for web socket for live chatting and image upload.
